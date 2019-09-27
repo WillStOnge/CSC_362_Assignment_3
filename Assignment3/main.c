@@ -80,7 +80,8 @@ char* move(char* p1, char* p2, char* board, int player_number, int board_size)
 		player = findHaven(board, player, player_number, 0);
 
 		(player == board) ? printf(" which is a 'B' so is moving back and with no more havens, lands at 0") : printf(" which is a 'B' so is moving back and lands at %d", player - board);
-		*player = '*';
+		if (*player == 'H')
+			*player = '*';
 	}
 	// If the pointer points to B then find a haven ahead the pointer and output more info to the console
 	if (*player == 'F')
