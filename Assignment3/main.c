@@ -1,6 +1,6 @@
 // Name: a3.c
 // Author: Will St. Onge
-// Description: Game of chutes and ladders based on pointer arithmetic. Each player gets 1 6-sided dice spin per round and the board is printed out to an output file each round as well as output who moved where and what else happened.
+// Description: Game of chutes and ladder. Uses rng to determine how far the player will move on the board, then uses pointer dereferencing to test what 'space' the player landed on. If it's a lower case alpha, it will convert it to ASCII dec and subtract 110 (n) from it. This determines how far the player will move backwards or forwards. If the character is and 'B' or and 'F', the program will search for an 'H' on the board to move the player to. If it is unsuccessful, it will put the player at the front of the baord if it's an 'F' and stay in place otherwise. After a player is moved to a 'H', the 'H' is removes and replaced with a '*'. Each turn, there is a file output which prints out the current board and a console output based on what happened this turn. Once a player reaches the end of the 100 space board, that player will win.
 
 #define SIZE 100 // Size of the board
 
@@ -30,7 +30,7 @@ void main()
 		p1 = move(p1, p2, board, 1, SIZE);
 		p2 = move(p2, p1, board, 2, SIZE);
 
-		// Test if player pointers are outside the board. If it is, set it to the beginning of the board
+		// Test if player pointers are before the board pointer. If one is, set it to the board pointer
 		if (p1 < board)
 			p1 = board;
 		if (p2 < board)
@@ -164,7 +164,7 @@ char* findHaven(char *board, char *player, int player_num, int forwards)
 char* chuteLadder(char *player, char *board)
 {
 	// Move to player pointer based on the letter the pointer is currently pointing to (Example m - n = -1)
-	char* pplayer = player + (((int)* player) - (int)'n');
+	char* pplayer = player + (((int)* player) - 'n');
 	// Set previous position to a - to signify it has been used
 	*player = '-';
 	// Test to see if the player pointer is behind the board, then return the player pointer
