@@ -16,7 +16,7 @@ char* chuteLadder(char*, char*); // Get the number of spaces to move the player 
 void main()
 {
 	// Declare game board and file
-	char board[SIZE] = "  mHk nH l B He Flq p H  hByHlho H B  jr HFB ir j H F ku gd  H pjB mH x  BF i H  m oB HlHFBhoH BB ", *p1 = board, *p2 = board;
+	char board[SIZE] = "  mHk  H l B He Flq p H  hByHlho H B  jr HFB ir j H  F ku gd  H pjB mH x  BF i H  m oB HlHFBhoH BB ", *p1 = board, *p2 = board;
 	FILE* file;
 
 	// Declare the rng seed as the system time and open a file stream
