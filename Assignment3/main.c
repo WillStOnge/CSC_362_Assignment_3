@@ -3,6 +3,7 @@
 // Description: Game of chutes and ladder. Uses rng to determine how far the player will move on the board, then uses pointer dereferencing to test what 'space' the player landed on. If it's a lower-case alpha, it will convert it to ASCII decimal and subtract 110 (n) from it. This determines how far the player will move backwards or forwards. If the character is and 'B' or and 'F', the program will search for an 'H' on the board to move the player to. If it is unsuccessful, it will put the player at the front of the board if it's an 'F' and stay in place otherwise. After a player is moved to a 'H', the 'H' is removes and replaced with a '*'. Each turn, there is a file output which prints out the current board and a console output based on what happened this turn. Once a player reaches the end of the 100-space board, that player will win.
 
 #define SIZE 100 // Size of the board
+#define FILENAME "output.txt" // Name of the file for the board to go into
 
 #include <stdio.h> // Functions for input and output
 #include <stdlib.h> // Functions for random number generation
@@ -21,10 +22,10 @@ void main()
 
 	// Declare the rng seed as the system time and open a file stream
 	srand(time(NULL));
-	fopen_s(&file, "output.txt", "w");
+	fopen_s(&file, FILENAME, "w");
 
 	// Keep going until the loop breaks
-	while (1)
+	while (!(p1 - board >= SIZE - 1 || p2 - board >= SIZE - 1))
 	{
 		// Move each player
 		p1 = move(p1, p2, board, 1, SIZE);
@@ -38,11 +39,11 @@ void main()
 
 		// Output the player pointers to a file
 		output(board, p1, p2, file);
-
-		// Win condition
-		if (p1 - board >= SIZE - 1 || p2 - board >= SIZE - 1)
-			break;
 	}
+	// Out the winner
+	p1 >= board + SIZE ? printf("Player 1 wins!") : printf("Player 2 wins!");
+
+	// Close the file
 	fclose(file);
 }
 
